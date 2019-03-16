@@ -3,7 +3,7 @@
     {{title}}
   </div>
   <div class="card-body">
-    <form (ngSubmit)="create()">
+    <form>
       <div>
         <mat-form-field>
           <input matInput type="text" placeholder="Nombre" [(ngModel)]="client.name" name="name">
@@ -23,7 +23,10 @@
       </div>
 
       <div>
-        <button mat-raised-button color="primary">Crear</button>
+        <button mat-raised-button color="primary" (click)="create()" *ngIf="!client.id else elseBlock">Crear</button>
+        <ng-template #elseBlock>
+            <button mat-raised-button color="primary" (click)="update()">Editar</button>
+        </ng-template>
       </div>
     </form>
   </div>
