@@ -34,10 +34,10 @@ export class FormComponent implements OnInit {
   }
 
   public create(): void {
-    this.clienteService.create(this.client).subscribe(response => {
+    this.clienteService.create(this.client).subscribe(cliente => {
       Swal.fire(
         'Nuevo Cliente!',
-        `Cliente ${response.name} creado con éxito.`,
+        `El cliente ${cliente.name} ha sido creado con éxito.`,
         'success'
       )
 
@@ -49,7 +49,7 @@ export class FormComponent implements OnInit {
     this.clienteService.update(this.client).subscribe(response => {
       Swal.fire(
         'Cliente actualizado',
-        `Cliente ${response.name} creado con éxito.`,
+        `${response.mensaje} | ${response.cliente.name}`,
         'success'
       )
 
