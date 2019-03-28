@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../shared/model/cliente';
 import { ClienteService } from '../shared/services/cliente.service';
 import Swal from 'sweetalert2';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clientes',
@@ -15,7 +16,16 @@ export class ClientesComponent implements OnInit {
   constructor(private clienteService: ClienteService) { }
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(data => {
+    this.clienteService.getClientes().pipe(
+      tap(data => {  // Tap es un VOID nos sirve para trabajar, para realizar algún tipo de tarea.
+        console.log('ClienteComponent: tap 3');
+        // this.clientes = data;
+        data.forEach(cliente => {
+          console.log(cliente.name);
+        })
+      })
+
+    ).subscribe(data => {
       this.clientes = data;
     });
   }
