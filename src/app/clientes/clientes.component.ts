@@ -3,6 +3,7 @@ import { Cliente } from '../shared/model/cliente';
 import { ClienteService } from '../shared/services/cliente.service';
 import Swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -13,21 +14,30 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.clienteService.getClientes().pipe(
-      tap(data => {  // Tap es un VOID nos sirve para trabajar, para realizar algún tipo de tarea.
-        console.log('ClienteComponent: tap 3');
-        // this.clientes = data;
-        data.forEach(cliente => {
-          console.log(cliente.name);
-        })
-      })
+    this.activatedRoute.paramMap.subscribe ( params => {
+      let page: number = +params.get('page');
 
-    ).subscribe(data => {
-      this.clientes = data;
+      if(!page) { page = 0 }
+
+      this.clienteService.getClientes(page).pipe(
+        tap(data => {  // Tap es un VOID nos sirve para trabajar, para realizar algún tipo de tarea.
+          console.log('ClienteComponent: tap 3');
+          // this.clientes = data;
+          (data.content as Cliente[]).forEach(cliente => {
+            console.log(cliente.name);
+          })
+        })
+  
+      ).subscribe(data => {
+        this.clientes = data.content as Cliente[];
+      });
+
     });
+   
   }
 
   delete(cliente: Cliente): void {
