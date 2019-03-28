@@ -1,3 +1,9 @@
+<ul class="alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">
+      {{ err }}
+  </li>
+</ul>
+
 <div class="card">
   <div class="card-header">
     {{title}}
@@ -6,7 +12,7 @@
     <form #clienteForm="ngForm">
       <div>
         <mat-form-field>
-          <input matInput type="text" placeholder="Nombre" [(ngModel)]="client.name" name="nameForm" required minlength="4" #nameForm="ngModel">
+          <input matInput type="text" placeholder="Nombre" [(ngModel)]="client.name" name="nameForm"  #nameForm="ngModel"> <!-- required minlength="4" -->
         </mat-form-field>
       
 
@@ -23,7 +29,7 @@
 
       <div>
         <mat-form-field>
-          <input matInput type="text" placeholder="Apellidos" [(ngModel)]="client.lastname" name="lastname" required #lastname="ngModel">
+          <input matInput type="text" placeholder="Apellidos" [(ngModel)]="client.lastname" name="lastname" #lastname="ngModel"> <!-- required -->
         </mat-form-field>
 
         <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
@@ -35,7 +41,7 @@
 
       <div>
         <mat-form-field>
-          <input matInput type="text" placeholder="Email" [(ngModel)]="client.email" name="email" required email #email="ngModel">
+          <input matInput type="text" placeholder="Email" [(ngModel)]="client.email" name="email" #email="ngModel"> <!-- required email -->
         </mat-form-field>
 
         <div *ngIf="email.invalid && (email.dirty || email.touched)">

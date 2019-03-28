@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   private client: Cliente = new Cliente();
   private title: string = 'Crear Cliente';
+  private errors: string[];
 
   constructor(private clienteService: ClienteService,
               private router: Router,
@@ -42,6 +43,11 @@ export class FormComponent implements OnInit {
       )
 
       this.router.navigate(['/clientes']);
+    },
+    err => {
+      this.errors = err.error.errors as string[];
+      console.log('Cod error:', err.status);
+      console.log(err.error.errors)
     });
   }
 
@@ -54,7 +60,12 @@ export class FormComponent implements OnInit {
       )
 
       this.router.navigate(['/clientes']);
-    })
+    },
+    err => {
+      this.errors = err.error.errors as string[];
+      console.log('Cod error:', err.status);
+      console.log(err.error.errors)
+    });
   }  
 
 }
