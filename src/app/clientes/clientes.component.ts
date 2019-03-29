@@ -64,7 +64,11 @@ export class ClientesComponent implements OnInit {
 
       if (result.value) {
         this.clienteService.delete(cliente.id).subscribe( response => {
-          this.clientes = this.clientes.filter(cli => cli != cliente);
+          //this.clientes = this.clientes.filter(cli => cli != cliente);
+          this.clienteService.getClientes(0).subscribe(response => {
+            this.clientes = response.content as Cliente[];
+            this.paginador = response;
+          });
           
           swalWithBootstrapButtons.fire(
             'Cliente eliminado!',
