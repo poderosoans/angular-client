@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Cliente } from 'src/app/shared/model/cliente';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
-import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-detalle',
@@ -16,7 +16,7 @@ export class DetalleComponent implements OnInit {
   progress: number = 0;
 
   constructor(private clienteService: ClienteService,
-              private activatedRoute: ActivatedRoute) { }
+              private modalService: ModalService) { }
 
   ngOnInit() {
 
@@ -54,6 +54,12 @@ export class DetalleComponent implements OnInit {
 
     }
 
+  }
+
+  closeModal(client: Cliente) {
+    this.modalService.closeModal();
+    this.imageSelected = null;
+    this.progress = 0;
   }
 
 }

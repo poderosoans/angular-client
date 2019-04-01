@@ -4,6 +4,7 @@ import { ClienteService } from '../shared/services/cliente.service';
 import Swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { ModalService } from '../shared/services/modal.service';
 
 @Component({
   selector: 'app-clientes',
@@ -17,7 +18,8 @@ export class ClientesComponent implements OnInit {
   clientSelected: Cliente;
 
   constructor(private clienteService: ClienteService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private modalService: ModalService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe ( params => {
@@ -86,6 +88,7 @@ export class ClientesComponent implements OnInit {
 
   openModal(client: Cliente) {
     this.clientSelected = client;
+    this.modalService.openModal();
   }
 
 }
