@@ -14,6 +14,7 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
   paginador: any;
+  clientSelected: Cliente;
 
   constructor(private clienteService: ClienteService,
               private activatedRoute: ActivatedRoute) { }
@@ -81,6 +82,10 @@ export class ClientesComponent implements OnInit {
       } 
       
     })
+  }
+
+  openModal(client: Cliente) {
+    this.clientSelected = client;
   }
 
 }

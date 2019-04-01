@@ -31,11 +31,6 @@ const routes: Routes = [
     path: 'clientes/form/:id',
     component: FormComponent
   }
-  ,
-  {
-    path: 'clientes/ver/:id',
-    component: DetalleComponent
-  }
 ];
 
 @NgModule({
