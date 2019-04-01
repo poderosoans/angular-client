@@ -22,13 +22,13 @@
                   <label class="custom-file-label" for="inputGroupFile04">Elegir foto</label>
                 </div>
                 <div class="input-group-append">
-                  <button (click)="uploadFile()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Enviar</button>
+                  <button (click)="uploadFile()" [disabled]="!imageSelected" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Enviar</button>
                 </div>
             </div>
         </div>
 
         <div class="col-sm">
-          <img *ngIf="cliente?.image" src="http://localhost:8080/api/uploads/img/{{cliente.image}}" alt="{{cliente.image}}" class="img-thumbnail rounded">
+          <img *ngIf="cliente?.image"  src="http://localhost:8080/api/uploads/img/{{cliente.image}}" alt="{{cliente.image}}" class="img-thumbnail rounded">
         </div>
       </div>
     </div>
