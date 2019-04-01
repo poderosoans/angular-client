@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form/form.component';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'clientes/form/:id',
     component: FormComponent
+  }
+  ,
+  {
+    path: 'clientes/ver/:id',
+    component: DetalleComponent
   }
 ];
 
