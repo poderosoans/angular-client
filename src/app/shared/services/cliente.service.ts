@@ -109,7 +109,7 @@ export class ClienteService {
     formData.append("file", file);
     formData.append("id", id);
 
-    return this.http.post(`${this.urlEndPoint}/upload/`, formData).pipe(
+    return this.http.post(`${this.urlEndPoint}/upload`, formData).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
         if (e.status == 400) {
@@ -119,7 +119,7 @@ export class ClienteService {
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
-      
+
     );
   }
 

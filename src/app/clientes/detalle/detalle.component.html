@@ -6,15 +6,33 @@
 
   <div class="card-body">
 
-      <div class="input-group">
-          <div class="custom-file">
-            <input (change)="selectImage($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-            <label class="custom-file-label" for="inputGroupFile04">Elegir foto</label>
-          </div>
-          <div class="input-group-append">
-            <button (click)="uploadFile()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Enviar</button>
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+            <ul *ngIf="cliente" class="list-group mb-3">
+              <li class="list-group-item active">{{ cliente.name }}</li>
+              <li class="list-group-item">{{ cliente.lastname }}</li>
+              <li class="list-group-item">{{ cliente.email }}</li>
+              <li class="list-group-item">{{ cliente.createdAt | date: "fullDate" }}</li>
+            </ul>
+
+            <div class="input-group">
+                <div class="custom-file">
+                  <input (change)="selectImage($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                  <label class="custom-file-label" for="inputGroupFile04">Elegir foto</label>
+                </div>
+                <div class="input-group-append">
+                  <button (click)="uploadFile()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Enviar</button>
+                </div>
+            </div>
         </div>
+
+        <div class="col-sm">
+          <img *ngIf="cliente?.image" src="http://localhost:8080/api/uploads/img/{{cliente.image}}" alt="{{cliente.image}}" class="img-thumbnail rounded">
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
