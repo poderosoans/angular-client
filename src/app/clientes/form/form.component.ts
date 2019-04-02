@@ -75,6 +75,16 @@ export class FormComponent implements OnInit {
       console.log('Cod error:', err.status);
       console.log(err.error.errors)
     });
-  }  
+  }
+  
+  compareRegion(o1: Region, o2: Region) : boolean {
+    // strict mode === undefined
+    /* // Comparación para añadir opción por defecto con texto seleccionar
+    if( o1 == undefined && o2 === undefined) {
+      return true;
+    }
+    */
+    return o1 == null || o2 == null ? false: o1.id === o2.id;
+  }
 
 }
