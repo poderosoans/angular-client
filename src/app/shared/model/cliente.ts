@@ -1,3 +1,5 @@
+import { Region } from './region';
+
 export class Cliente {
     id: number;
     name: string;
@@ -5,4 +7,6 @@ export class Cliente {
     createdAt: string;
     email: string;
     image: string;
+    region: Region;
+
 }

@@ -6,6 +6,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { formatDate, DatePipe } from '@angular/common';
+import { Region } from '../model/region';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class ClienteService {
 
   constructor(private http: HttpClient,
     private router: Router) { }
+
+  getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
+  }
 
   getClientes(page: number): Observable<any> {
 
