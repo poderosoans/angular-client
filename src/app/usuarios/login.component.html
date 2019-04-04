@@ -8,34 +8,33 @@
     
         <div>
             <mat-form-field>
-              <input matInput type="text" placeholder="Nombre de usuario"  name="username"   autofocus required>
+              <input matInput [(ngModel)]="user.username" #username="ngModel" type="text" placeholder="Nombre de usuario"  name="username"   autofocus required>
             </mat-form-field>
-          
-    <!-- 
+           
           <div *ngIf="username.invalid && (username.dirty || username.touched)">
             <small class="text-danger" *ngIf="username.errors.required">
               Ingrese el campo obligatorio.
             </small>
     
           </div>
--->
+
         </div>
 
         <div>
               <mat-form-field>
-                <input matInput type="password" placeholder="Contraseña"  name="password"   required autocomplete>
+                <input matInput [(ngModel)]="user.password" #password="ngModel" type="password" placeholder="Contraseña"  name="password"   required autocomplete>
               </mat-form-field>
-<!-- 
+ 
             <div *ngIf="password.invalid && (password.dirty || password.touched)">
               <small class="text-danger" *ngIf="password.errors.required">
                 Ingrese el campo obligatorio.
               </small>
             </div>
--->
+
         </div>
 
         <div>
-            <button mat-raised-button color="primary">Ingresar</button>
+            <button (click)="login()" mat-raised-button color="primary">Ingresar</button>
         </div>
       
     </form>
