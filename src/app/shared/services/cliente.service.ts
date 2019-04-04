@@ -30,6 +30,9 @@ export class ClienteService {
 
   private isNotAuthorized(e): boolean {
     if(e.status == 401 ) { // 401: Unauthorized => No autorizado | 403: Forbidden => Recurso prohibido
+      if(this.authService.isAuthenticated()) {  // Verifica si el token expiró en el backend para cerrar sesión en el frontend.
+        this.authService.logout();
+      }
       this.router.navigate(['/login']);
       return true;
     }else if (e.status == 403) {
