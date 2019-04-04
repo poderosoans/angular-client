@@ -89,5 +89,12 @@ export class AuthService {
     */
    
   }
+  
+  hasRole(role: string): boolean {
+    if(this.user.roles.includes(role)) { // Includes: Valida si existe algun elemento dentro del arreglo
+      return true;
+    }
+    return false;
+  }
 
 }

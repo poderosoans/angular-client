@@ -4,6 +4,7 @@ import { ClienteService } from 'src/app/shared/services/cliente.service';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-detalle',
@@ -16,7 +17,8 @@ export class DetalleComponent implements OnInit {
   progress: number = 0;
 
   constructor(private clienteService: ClienteService,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              private authService: AuthService) { }
 
   ngOnInit() {
 
