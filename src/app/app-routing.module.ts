@@ -5,6 +5,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form/form.component';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,11 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'clientes/form',
-    component: FormComponent
+    component: FormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'clientes/form/:id',
-    component: FormComponent
+    component: FormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
