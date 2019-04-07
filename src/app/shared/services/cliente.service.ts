@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from '../model/cliente';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { formatDate, DatePipe } from '@angular/common';
 import { Region } from '../model/region';
 import { AuthService } from './auth.service';
 
@@ -14,28 +13,19 @@ import { AuthService } from './auth.service';
 })
 export class ClienteService {
   private urlEndPoint: string = 'http://localhost:8080/api/clients'
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient,
     private router: Router,
     private authService: AuthService) { }
 
-  private addAuthorizationHeader() {
-    let token = this.authService.token;
-    if (token != null) {
-      return this.httpHeaders.append('Authorization', 'Bearer '+ token);
-    }
-    return this.httpHeaders;
-  }
-
   private isNotAuthorized(e): boolean {
-    if(e.status == 401 ) { // 401: Unauthorized => No autorizado | 403: Forbidden => Recurso prohibido
-      if(this.authService.isAuthenticated()) {  // Verifica si el token expiró en el backend para cerrar sesión en el frontend.
+    if (e.status == 401) { // 401: Unauthorized => No autorizado | 403: Forbidden => Recurso prohibido
+      if (this.authService.isAuthenticated()) {  // Verifica si el token expiró en el backend para cerrar sesión en el frontend.
         this.authService.logout();
       }
       this.router.navigate(['/login']);
       return true;
-    }else if (e.status == 403) {
+    } else if (e.status == 403) {
       Swal.fire('Acceso denegado', `Hola ${this.authService.user.username} no tienes acceso a este recurso.`, 'warning');
       this.router.navigate(['/clientes']);
       return true;
@@ -44,7 +34,7 @@ export class ClienteService {
   }
 
   getRegiones(): Observable<Region[]> {
-    return this.http.get<Region[]>(this.urlEndPoint + '/regiones', {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones').pipe(
       catchError(e => {
         this.isNotAuthorized(e);
         return throwError(e);
@@ -91,10 +81,10 @@ export class ClienteService {
   }
 
   create(client: Cliente): Observable<Cliente> {
-    return this.http.post(this.urlEndPoint, client, { headers: this.addAuthorizationHeader() }).pipe(
+    return this.http.post(this.urlEndPoint, client).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
-        if(this.isNotAuthorized(e)) {
+        if (this.isNotAuthorized(e)) {
           return throwError(e);
         }
 
@@ -109,10 +99,10 @@ export class ClienteService {
   }
 
   getCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`,{headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
 
-        if(this.isNotAuthorized(e)) {
+        if (this.isNotAuthorized(e)) {
           return throwError(e);
         }
 
@@ -126,10 +116,10 @@ export class ClienteService {
   }
 
   update(client: Cliente): Observable<any> {
-    return this.http.put<any>(`${this.urlEndPoint}/${client.id}`, client, { headers: this.addAuthorizationHeader() }).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${client.id}`, client).pipe(
       catchError(e => {
 
-        if(this.isNotAuthorized(e)) {
+        if (this.isNotAuthorized(e)) {
           return throwError(e);
         }
 
@@ -144,10 +134,10 @@ export class ClienteService {
   }
 
   delete(id: number): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, { headers: this.addAuthorizationHeader() }).pipe(
+    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
 
-        if(this.isNotAuthorized(e)) {
+        if (this.isNotAuthorized(e)) {
           return throwError(e);
         }
 
@@ -162,16 +152,11 @@ export class ClienteService {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("id", id);
-    
-    let httpHeaders = new HttpHeaders();
-    let token = this.authService.token;
-    if (token != null) {
-      httpHeaders = httpHeaders.append('Authorization','Bearer '+ token);
-    }
+
+
 
     const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
-      reportProgress: true,
-      headers: httpHeaders
+      reportProgress: true
     });
 
     return this.http.request(req).pipe(
@@ -180,7 +165,7 @@ export class ClienteService {
         return throwError(e);
       })
     );
-    
+
   }
 
 }

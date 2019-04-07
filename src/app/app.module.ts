@@ -8,7 +8,7 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService } from './shared/services/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormComponent } from './clientes/form/form.component';
 import { FormsModule } from '@angular/forms'
 
@@ -29,6 +29,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 
 registerLocaleData(localeEs, 'es');
 
@@ -62,7 +63,8 @@ registerLocaleData(localeEs, 'es');
     MatDatepickerModule,
     MatMomentDateModule
   ],
-  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es'}],
+  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es'},
+  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
