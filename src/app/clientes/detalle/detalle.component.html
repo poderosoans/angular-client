@@ -43,6 +43,30 @@
                     <img *ngIf="cliente?.image"  src="http://localhost:8080/api/uploads/img/{{cliente.image}}" alt="{{cliente.image}}" class="img-thumbnail rounded">
                   </div>
                 </div>
+
+                <div class="row">
+                  <div *ngIf="cliente.invoices.length == 0" class="alert alert-info my-4">
+                    No hay facturas asignadas para el cliente {{cliente.name}} {{cliente.lastname}}
+                  </div>
+
+                  <table *ngIf="cliente.invoices.length > 0" class="table table-bordered table-striped my-4">
+                    <thead>
+                      <th>Folio</th>
+                      <th>Descripción</th>
+                      <th>Fecha</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let invoice of cliente.invoices">
+                        <td> {{ invoice.id }} </td>
+                        <td> {{ invoice.description }} </td>
+                        <td> {{ invoice.createdAt }} </td>
+                        <td> {{ invoice.total }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
 
         </div>
