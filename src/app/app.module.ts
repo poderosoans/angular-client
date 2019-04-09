@@ -33,6 +33,7 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { InvoiceDetailComponent } from './invoices/invoice-detail.component';
 import { InvoiceService } from './shared/services/invoice.service';
+import { InvoiceComponent } from './invoices/form/invoice.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -47,7 +48,8 @@ registerLocaleData(localeEs, 'es');
     PaginatorComponent,
     DetalleComponent,
     LoginComponent,
-    InvoiceDetailComponent
+    InvoiceDetailComponent,
+    InvoiceComponent,
   ],
   imports: [
     BrowserModule,

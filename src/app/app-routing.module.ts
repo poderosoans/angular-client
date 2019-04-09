@@ -8,6 +8,7 @@ import { LoginComponent } from './usuarios/login.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
 import { InvoiceDetailComponent } from './invoices/invoice-detail.component';
+import { InvoiceComponent } from './invoices/form/invoice.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'invoices/:id',
     component: InvoiceDetailComponent
+  },
+  {
+    path: 'invoices/form/:clientId',
+    component: InvoiceComponent
   }
 ];
 
