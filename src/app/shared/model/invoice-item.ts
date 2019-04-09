@@ -7,6 +7,6 @@ export class InvoiceItem {
     amount: number;
 
     public calculateAmount(): number {
-        return this.quantity*  this.product.price;
+        return this.quantity * this.product.price;
     }
 }

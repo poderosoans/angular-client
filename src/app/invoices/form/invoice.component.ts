@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { startWith, map, flatMap } from 'rxjs/operators';
 import { InvoiceService } from 'src/app/shared/services/invoice.service';
 import { Product } from 'src/app/shared/model/product';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { InvoiceItem } from 'src/app/shared/model/invoice-item';
 
 @Component({
   selector: 'app-invoice',
@@ -55,5 +57,19 @@ export class InvoiceComponent implements OnInit {
     return product ? product.name: undefined;
   }
 
+  productSelected(event: MatAutocompleteSelectedEvent): void{
+    let product = event.option.value as Product;
+    console.log(product);
+
+    let nuevoItem = new InvoiceItem();
+    nuevoItem.product = product;
+
+    this.invoice.items.push(nuevoItem);
+
+    // Clean autocomplete
+    this.autoCompleteControl.setValue('');
+    event.option.focus();
+    event.option.deselect();
+  }
 
 }
