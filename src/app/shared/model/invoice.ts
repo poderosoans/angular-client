@@ -9,4 +9,12 @@ export class Invoice {
     client: Cliente;
     total: number;
     createdAt: Date;
+
+    calculateGrandTotal(): number {
+        this.total = 0;
+        this.items.forEach((item:InvoiceItem) => {
+            this.total += item.calculateAmount();
+        })
+        return this.total;
+    }
 }
