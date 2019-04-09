@@ -24,4 +24,8 @@ export class InvoiceService {
     return this.httpClient.get<Product[]>(`${this.urlEndPoint}/product-filter/${term}`);
   }
 
+  create(invoice: Invoice): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(this.urlEndPoint, invoice);
+  }
+
 }

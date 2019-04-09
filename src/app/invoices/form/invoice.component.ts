@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Invoice } from 'src/app/shared/model/invoice';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, flatMap } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { InvoiceService } from 'src/app/shared/services/invoice.service';
 import { Product } from 'src/app/shared/model/product';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { InvoiceItem } from 'src/app/shared/model/invoice-item';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-invoice',
@@ -25,7 +26,8 @@ export class InvoiceComponent implements OnInit {
 
   constructor(private clientService: ClienteService,
               private activatedRoute: ActivatedRoute,
-              private invoiceService: InvoiceService) { }
+              private invoiceService: InvoiceService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -112,6 +114,15 @@ export class InvoiceComponent implements OnInit {
 
   removeInvoiceItem(id: number): void {
     this.invoice.items = this.invoice.items.filter((item: InvoiceItem) => id !== item.product.id);
+  }
+
+  create() {
+    console.log(this.invoice);
+    this.invoiceService.create(this.invoice).subscribe(invoice => {
+      Swal.fire(this.title,`Factura ${invoice.description} creada con éxito.`, 'success');
+      this.router.navigate(['/clientes']);
+    })
+
   }
 
 }
