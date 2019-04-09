@@ -10,7 +10,7 @@ import { ClienteService } from './shared/services/cliente.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormComponent } from './clientes/form/form.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,6 +34,8 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { InvoiceDetailComponent } from './invoices/invoice-detail.component';
 import { InvoiceService } from './shared/services/invoice.service';
 import { InvoiceComponent } from './invoices/form/invoice.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 registerLocaleData(localeEs, 'es');
 
@@ -67,7 +69,10 @@ registerLocaleData(localeEs, 'es');
     MatSelectModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es'},
   { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
