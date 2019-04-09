@@ -72,4 +72,14 @@ export class InvoiceComponent implements OnInit {
     event.option.deselect();
   }
 
+  updateQuantity(id: number, event: any): void {
+    let quantity: number = +event.target.value;
+    this.invoice.items = this.invoice.items.map((item: InvoiceItem) => {
+        if(id == item.product.id) {
+          item.quantity = quantity;
+        }
+        return item;
+    });
+  }
+
 }
