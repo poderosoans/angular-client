@@ -61,10 +61,13 @@ export class InvoiceComponent implements OnInit {
     let product = event.option.value as Product;
     console.log(product);
 
-    let nuevoItem = new InvoiceItem();
-    nuevoItem.product = product;
-
-    this.invoice.items.push(nuevoItem);
+    if(this.existsItem(product.id)) {
+      this.increaseQuantity(product.id);
+    }else {
+      let nuevoItem = new InvoiceItem();
+      nuevoItem.product = product;
+      this.invoice.items.push(nuevoItem);
+    }
 
     // Clean autocomplete
     this.autoCompleteControl.setValue('');
@@ -80,6 +83,26 @@ export class InvoiceComponent implements OnInit {
         }
         return item;
     });
+  }
+
+  existsItem(id: number): boolean {
+    let exists = false;
+    this.invoice.items.forEach((item: InvoiceItem) => {
+      if(id == item.product.id) {
+        exists = true;
+      }
+    })
+    return exists;
+  }
+
+  increaseQuantity(id: number): void {
+    this.invoice.items = this.invoice.items.map((item: InvoiceItem) => {
+      if(id == item.product.id) {
+        ++item.quantity;
+      }
+        return item;
+    });
+
   }
 
 }
