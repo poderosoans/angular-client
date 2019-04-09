@@ -77,6 +77,11 @@ export class InvoiceComponent implements OnInit {
 
   updateQuantity(id: number, event: any): void {
     let quantity: number = +event.target.value;
+    
+    if (quantity == 0) {
+      return this.removeInvoiceItem(id);
+    }
+    
     this.invoice.items = this.invoice.items.map((item: InvoiceItem) => {
         if(id == item.product.id) {
           item.quantity = quantity;
@@ -91,7 +96,7 @@ export class InvoiceComponent implements OnInit {
       if(id == item.product.id) {
         exists = true;
       }
-    })
+    });
     return exists;
   }
 
@@ -103,6 +108,10 @@ export class InvoiceComponent implements OnInit {
         return item;
     });
 
+  }
+
+  removeInvoiceItem(id: number): void {
+    this.invoice.items = this.invoice.items.filter((item: InvoiceItem) => id !== item.product.id);
   }
 
 }
