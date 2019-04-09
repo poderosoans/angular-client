@@ -56,6 +56,7 @@
                       <th>Fecha</th>
                       <th>Total</th>
                       <th>Detalle</th>
+                      <th>Eliminar</th>
                     </thead>
                     <tbody>
                       <tr *ngFor="let invoice of cliente.invoices">
@@ -64,6 +65,7 @@
                         <td> {{ invoice.createdAt }} </td>
                         <td> {{ invoice.total }} </td>
                         <td><button class="btn btn-primary btn-sm" [routerLink]="['/invoices', invoice.id]">Ver</button></td>
+                        <td><button class="btn btn-danger btn-sm" (click)="delete(invoice)">Eliminar</button></td>
                       </tr>
                     </tbody>
                   </table>

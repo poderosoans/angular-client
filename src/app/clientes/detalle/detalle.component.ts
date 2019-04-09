@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Invoice } from 'src/app/shared/model/invoice';
+import { InvoiceService } from 'src/app/shared/services/invoice.service';
 
 @Component({
   selector: 'app-detalle',
@@ -18,7 +20,8 @@ export class DetalleComponent implements OnInit {
 
   constructor(private clienteService: ClienteService,
               private modalService: ModalService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private invoiceService: InvoiceService) { }
 
   ngOnInit() {
 
@@ -63,6 +66,44 @@ export class DetalleComponent implements OnInit {
     this.modalService.closeModal();
     this.imageSelected = null;
     this.progress = 0;
+  }
+
+  delete(invoice: Invoice): void {
+  
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false,
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: `¿Seguro que desea eliminar la factura ${invoice.description}`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+
+      if (result.value) {
+        this.invoiceService.delete(invoice.id).subscribe( response => {
+          this.cliente.invoices = this.cliente.invoices.filter(inv => inv != invoice);
+          
+          swalWithBootstrapButtons.fire(
+            'Factura eliminado!',
+            `Factura ${invoice.description} eliminado con éxito.`,
+            'success'
+          )
+          
+        })
+        
+      } 
+      
+    })
+
   }
 
 }

@@ -12,7 +12,11 @@ export class InvoiceService {
               ) { }
 
   getInvoice(id: number): Observable<Invoice> {
-    return this.httpClient.get<Invoice>(`${this.urlEndPoint}/${id}`)
+    return this.httpClient.get<Invoice>(`${this.urlEndPoint}/${id}`);
+  }
+
+  delete(id: number): Observable<void>{
+    return this.httpClient.delete<void>(`${this.urlEndPoint}/${id}`);
   }
 
 }
