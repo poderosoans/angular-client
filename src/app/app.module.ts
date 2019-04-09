@@ -31,6 +31,8 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { InvoiceDetailComponent } from './invoices/invoice-detail.component';
+import { InvoiceService } from './shared/services/invoice.service';
 
 registerLocaleData(localeEs, 'es');
 
@@ -44,7 +46,8 @@ registerLocaleData(localeEs, 'es');
     FormComponent,
     PaginatorComponent,
     DetalleComponent,
-    LoginComponent
+    LoginComponent,
+    InvoiceDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ registerLocaleData(localeEs, 'es');
   ],
   providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es'},
   { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  InvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
