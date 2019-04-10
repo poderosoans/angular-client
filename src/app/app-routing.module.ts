@@ -46,11 +46,15 @@ const routes: Routes = [
   },
   {
     path: 'invoices/:id',
-    component: InvoiceDetailComponent
+    component: InvoiceDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {role: 'ROLE_USER'}
   },
   {
     path: 'invoices/form/:clientId',
-    component: InvoiceComponent
+    component: InvoiceComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {role: 'ROLE_ADMIN'}
   }
 ];
 
