@@ -126,7 +126,7 @@ export class InvoiceComponent implements OnInit {
 
       this.invoiceService.create(this.invoice).subscribe(invoice => {
         Swal.fire(this.title,`Factura ${invoice.description} creada con éxito.`, 'success');
-        this.router.navigate(['/clientes']);
+        this.router.navigate(['/invoices',invoice.id]);
       })
     }
 

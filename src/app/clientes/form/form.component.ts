@@ -11,7 +11,7 @@ import { Region } from 'src/app/shared/model/region';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  private client: Cliente = new Cliente();
+  public client: Cliente = new Cliente();
   private title: string = 'Crear Cliente';
   private errors: string[];
   regiones: Region[];

@@ -19,8 +19,8 @@ export class DetalleComponent implements OnInit {
   progress: number = 0;
 
   constructor(private clienteService: ClienteService,
-              private modalService: ModalService,
-              private authService: AuthService,
+              public modalService: ModalService,
+              public authService: AuthService,
               private invoiceService: InvoiceService) { }
 
   ngOnInit() {
