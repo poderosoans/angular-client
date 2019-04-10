@@ -61,6 +61,9 @@ export class FormComponent implements OnInit {
   }
 
   update() : void {
+    // Pasamos a null la factura, ya que no la queremos editar.
+    this.client.invoices = null;
+
     this.clienteService.update(this.client).subscribe(response => {
       Swal.fire(
         'Cliente actualizado',
