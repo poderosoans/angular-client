@@ -5,7 +5,7 @@
       <a [routerLink]="['/clientes']" class="btn btn-light btn-xs">&laquo; volver</a>
     </h4>
 
-    <form>
+    <form #invoiceForm="ngForm">
       <div class="form-group row" *ngIf="invoice.client">
         <label class="col-sm-2 col-form-label">
           Cliente</label>
@@ -18,7 +18,10 @@
         <label class="col-sm-2 col-form-label">
           Descripción</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="invoice.description" name="description">
+          <input type="text" class="form-control" [(ngModel)]="invoice.description" name="description" required #description="ngModel">
+          <div class="alert alert-danger" *ngIf="description.invalid && description.touched || description.invalid && invoiceForm.submitted">
+            La descripción es requerida.
+          </div>
         </div>
       </div>
 
@@ -41,6 +44,10 @@
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
+            
+              <div class="alert alert-danger" *ngIf="autoCompleteControl.invalid && invoiceForm.submitted">
+                  La factura debe tener al menos una línea.
+                </div>
         </div>
       </div>
 
@@ -73,7 +80,7 @@
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <button (click)="create()" class="btn btn-secondary">Crear Factura</button>
+          <button (click)="create(invoiceForm)" class="btn btn-secondary">Crear Factura</button>
         </div>
       </div>
 

@@ -116,12 +116,19 @@ export class InvoiceComponent implements OnInit {
     this.invoice.items = this.invoice.items.filter((item: InvoiceItem) => id !== item.product.id);
   }
 
-  create() {
+  create(invoiceForm: any) {
     console.log(this.invoice);
-    this.invoiceService.create(this.invoice).subscribe(invoice => {
-      Swal.fire(this.title,`Factura ${invoice.description} creada con éxito.`, 'success');
-      this.router.navigate(['/clientes']);
-    })
+    if(this.invoice.items.length == 0) {
+      this.autoCompleteControl.setErrors({'invalid': true});
+    }
+
+    if(invoiceForm.form.valid && this.invoice.items.length > 0) {
+
+      this.invoiceService.create(this.invoice).subscribe(invoice => {
+        Swal.fire(this.title,`Factura ${invoice.description} creada con éxito.`, 'success');
+        this.router.navigate(['/clientes']);
+      })
+    }
 
   }
 
