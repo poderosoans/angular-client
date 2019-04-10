@@ -12,8 +12,8 @@ import { Region } from 'src/app/shared/model/region';
 })
 export class FormComponent implements OnInit {
   public client: Cliente = new Cliente();
-  private title: string = 'Crear Cliente';
-  private errors: string[];
+  public title: string = 'Crear Cliente';
+  public errors: string[];
   regiones: Region[];
 
   constructor(private clienteService: ClienteService,
