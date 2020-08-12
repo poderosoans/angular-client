@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./directiva.component.css']
 })
 export class DirectivaComponent implements OnInit {
-  listaCursos = ['Java','Matemática', 'Comunicación'];
+  listaCursos = ['Java','Matemática', 'Comunicación', 'AWS 2020'];
   habilitar: boolean = true;
   constructor() { }
 
